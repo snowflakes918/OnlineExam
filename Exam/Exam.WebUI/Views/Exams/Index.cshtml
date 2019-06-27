@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Test>
+
+@{
+    ViewData["Title"] = "Sınav Listesi";
+}
+
+
+    <p class="createxams">
+        <a asp-action="Create" class="btn">Yeni Sınav</a>
+        <a asp-action="LogOut" asp-controller="Home" class="btn btn-info float-right">Çıkış Yap</a>
+    </p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               #
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.title)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.ReleaseDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int i = 0;}
+@foreach (Test item in Model) {
+    i++;
+        <tr>
+            <td>
+                @i
+            </td>
+            <td>
+                <a asp-action="index" asp-controller="ExamScreen" asp-route-id="@item.ID" class="btn"> @Html.DisplayFor(modelItem => item.title)</a>
+            </td>
+
+            <td>
+                @item.ReleaseDate.ToShortDateString()
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@item.ID">Sil</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

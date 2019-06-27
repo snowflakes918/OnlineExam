@@ -1,0 +1,59 @@
+﻿@model List<Wired>
+
+@{
+    ViewData["Title"] = "Sınav Oluştur";
+}
+
+
+<h4>Yazı</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create" method="post">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <select class="form-control" id="wired" name="wired" onchange="ajaxWired(this)">
+                    @foreach (Wired item in Model)
+                    {
+                        <option value="@item.ID">@item.title</option>
+                    }
+                </select>
+            </div>
+            <div id="write_status" class="border">
+                <textarea style="width:100%;min-height:130px;resize: none" readonly>
+   @Model.FirstOrDefault(f=>f.ID==1).content</textarea>
+            
+            </div>
+            @for (int i = 1; i < 5; i++)
+            {
+        <div class="row" style="padding-top:10PX">
+            <div class="col-md-12">
+                <input type="text" class="form-control" id="question_@i" name="Question" maxlength="249" placeholder="Soru @i" required>
+            </div>
+            <div class="col-md-6"><input type="text" class="form-control" id="A_@i" name="A" placeholder="A)" maxlength="200" required></div>
+            <div class="col-md-6"><input type="text" class="form-control" id="B_@i" name="B" placeholder="B)" maxlength="200" required></div>
+            <div class="col-md-6"><input type="text" class="form-control" id="C_@i" name="C" placeholder="C)" maxlength="200" required></div>
+            <div class="col-md-6"><input type="text" class="form-control" id="D_@i" name="D" placeholder="D)" maxlength="200" required></div>
+            <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <select class="form-control" id="correct_@i" name="correct" required>
+                        <option value="">Doğru Cevabı Seç</option>
+                        <option value="1">A</option>
+                        <option value="2">B</option>
+                        <option value="3">C</option>
+                        <option value="4">D</option>
+
+                    </select>
+                </div>
+            </div>
+            }
+
+            <div class="form-group" style="margin-left:45%;padding-top:10px">
+                <input type="submit" value="Sınav Oluştur" class="btn border" />
+            </div>
+</form>
+    </div>
+</div>
+
+

@@ -1,0 +1,46 @@
+﻿@model ExamsVM
+@{
+    ViewData["Title"] = "Index";
+}
+    <div style="padding-top:10px;">
+        <h2>@Model.Test.title.ToUpper()</h2>
+        <div>
+            <p>
+                @Model.Test.content
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        @{int i = 0;}
+        @foreach (Question item in Model.question)
+        {
+            i++;
+            <div class="col-12 col-md-6" style="padding-bottom:10px">
+                <div class="row answerinput">
+                    <div class="col-12">
+
+                        @i) @item.name
+                    </div>
+                    <div class="col-12">
+                        <input type="text" id="option_@item.Options.FirstOrDefault(f=>f.pIndex==1).ID" onclick="GetAnswer(this,@item.Options.FirstOrDefault(f=>f.pIndex==1).ID)" readonly value="A) @item.Options.FirstOrDefault(f=>f.pIndex==1).answer" />
+                       
+                    </div>
+                    <div class="col-12">
+                        <input type="text" id="option_@item.Options.FirstOrDefault(f=>f.pIndex==2).ID" onclick="GetAnswer(this,@item.Options.FirstOrDefault(f=>f.pIndex==2).ID)" readonly value="B) @item.Options.FirstOrDefault(f=>f.pIndex==2).answer" />
+                    </div>
+                    <div class="col-12">
+                        <input type="text" id="option_@item.Options.FirstOrDefault(f=>f.pIndex==3).ID" onclick="GetAnswer(this,@item.Options.FirstOrDefault(f=>f.pIndex==3).ID)" readonly value="C) @item.Options.FirstOrDefault(f=>f.pIndex==3).answer" />
+                    </div>
+                    <div class="col-12">
+                        <input type="text" id="option_@item.Options.FirstOrDefault(f=>f.pIndex==4).ID" onclick="GetAnswer(this,@item.Options.FirstOrDefault(f=>f.pIndex==4).ID)" readonly value="D) @item.Options.FirstOrDefault(f=>f.pIndex==4).answer" />
+                    </div>
+                    <input type="hidden" id="question_@i" value="" />
+                </div>
+            </div>
+        }
+    </div>
+    <div class="row" style="padding-top:25px">
+        <div class="col-md-4"> </div>
+        <div class="col-md-4"> <a onclick="examFinish(this)" class="btn border" style="cursor:pointer">Sınavı Tamamla</a></div>
+        <div class="col-md-4"> <a asp-action="index" asp-controller="Exams" class="btn border" style="cursor:pointer">Sınav Listesi</a></div>
+    </div>
